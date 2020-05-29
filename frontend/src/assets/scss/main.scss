@@ -3,3 +3,56 @@ html {
   height: 100%;
   width: 100%;
 }
+
+#main-container {
+  height: 100vh;
+  width: 100vw;
+
+  #nav-bar {
+    background-color: #24292e;
+    flex-grow: 0;
+  }
+
+  .flex-grow-1 {
+    flex-grow: 1;
+  }
+}
+
+#user-list {
+  .cursor-pointer {
+    cursor: pointer;
+  }
+}
+
+#user-details {
+  .btn-voltar {
+    position: relative;
+    top: 10%;
+  }
+
+  .card-position {
+    position: relative;
+    top: 5%;
+  }
+
+  .li-style-none {
+    list-style: none;
+  }
+}
+
+// Media Queries
+@media (max-width: 576px) {
+  #form-since-search {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 1200px) {
+  #user-details {
+    flex-direction: column;
+  }
+
+  #list-user-repos {
+    width: 50%;
+  }
+}

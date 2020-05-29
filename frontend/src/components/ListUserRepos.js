@@ -3,12 +3,17 @@ import PropTypes from "prop-types";
 
 function ListUserRepos({ userRepos }) {
   return (
-    <ul className="list-group">
+    <ul id="list-user-repos" className="list-group mx-auto w-75">
       {userRepos.map((repo) => (
-        <li className="list-item">
-          <p>{repo.id}</p>
-          <p>{repo.name}</p>
-          <p>{repo.html_url}</p>
+        <li
+          key={repo.id}
+          className="list-item li-style-none d-flex justify-content-between"
+        >
+          <span className="text-success">{repo.id}</span>{" "}
+          <span className="text-danger">{repo.name}</span>{" "}
+          <a href={repo.url} target="_blank">
+            {repo.url}
+          </a>
         </li>
       ))}
     </ul>

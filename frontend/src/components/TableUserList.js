@@ -14,7 +14,7 @@ function TableUserList({ users, onShowUserDetails }) {
         {users.map((user) => (
           <tr
             key={user.id}
-            style={{ cursor: "pointer" }}
+            className="cursor-pointer"
             onClick={() => {
               onShowUserDetails(user.login);
             }}

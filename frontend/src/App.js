@@ -1,6 +1,5 @@
 import React from "react";
 import { Provider } from "react-redux";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import store from "./store";
 
 // Pages
@@ -17,13 +16,9 @@ library.add(faGithub);
 function App() {
   return (
     <Provider store={store}>
-      <Router>
-        <div className="App">
-          <Switch>
-            <Route exact path="/" component={Main} />
-          </Switch>
-        </div>
-      </Router>
+      <div className="App">
+        <Main />
+      </div>
     </Provider>
   );
 }

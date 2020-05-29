@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=production node server",
-    "dev": "nodemon app"
+    "dev": "nodemon app",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",

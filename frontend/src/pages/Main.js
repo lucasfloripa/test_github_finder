@@ -79,11 +79,11 @@ class Main extends Component {
     if (users && pagination) {
       return (
         <div
+          id="main-container"
           className="container-fluid d-flex flex-column px-0"
-          style={{ height: "100vh", width: "100vw" }}
         >
           <Navbar />
-          <div className="row m-0" style={{ flexGrow: "1" }}>
+          <div className="row flex-grow-1 m-0">
             {userListScreen ? (
               <UserList
                 users={users}
@@ -96,13 +96,21 @@ class Main extends Component {
               />
             ) : null}
             {userDetailsScreen ? (
-              <UserDetails user={user} userRepos={userRepos} />
+              <UserDetails
+                user={user}
+                userRepos={userRepos}
+                onToggleScreen={this.handleToggleScreen}
+              />
             ) : null}
           </div>
         </div>
       );
     } else {
-      return <h1>Loading ...</h1>;
+      return (
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      );
     }
   }
 }

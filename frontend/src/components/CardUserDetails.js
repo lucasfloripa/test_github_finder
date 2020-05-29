@@ -6,7 +6,7 @@ import formatDate from "../utils/formatDate";
 
 function CardUserDetails({ user }) {
   return (
-    <div className="mx-auto w-75" style={{ position: "relative", top: "10%" }}>
+    <div className="card-position mx-auto w-75">
       <div className="card text-center">
         <div className="card-header">
           <h2 className="my-3 text-center">User Details</h2>
@@ -21,7 +21,7 @@ function CardUserDetails({ user }) {
             </div>
           </h3>
           <hr />
-          <a href={user.url} target="_blank">
+          <a href={user.html_url} target="_blank">
             {user.html_url}
           </a>
           <p>

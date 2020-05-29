@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 
 function FormSinceSearch({ since, onChange, onSinceSearch }) {
   return (
-    <div className="form-inline d-flex justify-content-center">
-      <label htmlFor="since">Since</label>
+    <div id="form-since-search" className="form-inline d-flex justify-content-center">
+      <label htmlFor="since">Since Params</label>
       <div className="form-group mx-sm-3">
         <input
           className="form-control"

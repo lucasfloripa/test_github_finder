@@ -14,7 +14,7 @@ function MainLeftSide({
   onShowUserDetails,
 }) {
   return (
-    <section id="panel-left" className="w-100">
+    <section id="user-list" className="w-100">
       <h3 className="my-3 text-center">Users List</h3>
       <TableUserList users={users} onShowUserDetails={onShowUserDetails} />
       <Pagination pagination={pagination} onSetCurrentPage={onSetCurrentPage} />
