@@ -1,11 +1,11 @@
 # Github Finder
 
-##### Feito com a finalidade de realizar um teste para entrevista de emprego
+##### Procura de usuários do github atráves da API do próprio github.
 
 ## Funcionalidades
-  - Procura de lista de usuários através do parâmetro "since"
-  - Visualização de usuário único
-  - Visualização do repositórios do usuário
+  - Procura usuários do github através do parâmetro "since".
+  - Visualização de um  único usuário.
+  - Visualização dos repositórios do usuário.
   
 ## Tecnologias :computer:
 Front-end
