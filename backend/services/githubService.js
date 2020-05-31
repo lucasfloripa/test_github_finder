@@ -1,9 +1,9 @@
-const axios = require("axios");
+const api = require("../api/githubApi");
 
 const githubService = {
   getUsers: async (since) => {
-    return await axios
-      .get(`${process.env.GITHUB_URL}/users?since=${since}`)
+    return await api
+      .get(`/users?since=${since}`)
       .then((res) => {
         if (res.status === 200 && res.data) return res.data;
       })
@@ -11,8 +11,8 @@ const githubService = {
   },
 
   getUserDetails: async (username) => {
-    return await axios
-      .get(`${process.env.GITHUB_URL}/users/${username}`)
+    return await api
+      .get(`/users/${username}`)
       .then((res) => {
         if (res.status === 200 && res.data) {
           const { id, login, html_url, created_at } = res.data;
@@ -23,8 +23,8 @@ const githubService = {
   },
 
   getUserRepos: async (username) => {
-    return await axios
-      .get(`${process.env.GITHUB_URL}/users/${username}/repos`)
+    return await api
+      .get(`/users/${username}/repos`)
       .then((res) => {
         if (res.status === 200 && res.data) {
           const repos = res.data.map((repo) => ({
