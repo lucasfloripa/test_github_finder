@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 // Actions
@@ -114,6 +115,16 @@ class Main extends Component {
     }
   }
 }
+
+Main.propTypes = {
+  user: PropTypes.object,
+  users: PropTypes.array,
+  repos: PropTypes.array,
+  pagination: PropTypes.object,
+  getGithubUsers: PropTypes.func.isRequired,
+  getGithubUserRepos: PropTypes.func.isRequired,
+  getGithubUserDetails: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = (state) => ({
   users: state.github.users,
