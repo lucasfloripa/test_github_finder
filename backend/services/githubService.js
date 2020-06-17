@@ -1,8 +1,8 @@
-const api = require("../api/githubApi");
+const githubApi = require("../api/githubApi");
 
 const githubService = {
   getUsers: async (since) => {
-    return await api
+    return await githubApi
       .get(`/users?since=${since}`)
       .then((res) => {
         if (res.status === 200 && res.data) return res.data;
@@ -11,7 +11,7 @@ const githubService = {
   },
 
   getUserDetails: async (username) => {
-    return await api
+    return await githubApi
       .get(`/users/${username}`)
       .then((res) => {
         if (res.status === 200 && res.data) {
@@ -23,7 +23,7 @@ const githubService = {
   },
 
   getUserRepos: async (username) => {
-    return await api
+    return await githubApi
       .get(`/users/${username}/repos`)
       .then((res) => {
         if (res.status === 200 && res.data) {
