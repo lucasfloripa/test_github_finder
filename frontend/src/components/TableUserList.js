@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function TableUserList({ users, onShowUserDetails }) {
+function TableUserList({ users, onShowUserDetails, history }) {
   return (
     <table className="table table-bordered table-hover mb-4 w-50 mx-auto text-center">
       <thead className="thead-dark">
@@ -16,7 +16,7 @@ function TableUserList({ users, onShowUserDetails }) {
             key={user.id}
             className="cursor-pointer"
             onClick={() => {
-              onShowUserDetails(user.login);
+              onShowUserDetails(user.login, history);
             }}
           >
             <td>{user.id}</td>
@@ -31,6 +31,7 @@ function TableUserList({ users, onShowUserDetails }) {
 TableUserList.propTypes = {
   users: PropTypes.array.isRequired,
   onShowUserDetails: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 export default TableUserList;

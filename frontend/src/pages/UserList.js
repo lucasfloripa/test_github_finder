@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 // Components
 import { TableUserList, Pagination, FormSinceSearch } from "../components";
 
-function MainLeftSide({
+function UserList({
   users,
   pagination,
   since,
@@ -12,11 +12,16 @@ function MainLeftSide({
   onSinceSearch,
   onChange,
   onShowUserDetails,
+  history,
 }) {
   return (
     <section id="user-list" className="w-100">
       <h3 className="my-3 text-center">Users List</h3>
-      <TableUserList users={users} onShowUserDetails={onShowUserDetails} />
+      <TableUserList
+        users={users}
+        onShowUserDetails={onShowUserDetails}
+        history={history}
+      />
       <Pagination pagination={pagination} onSetCurrentPage={onSetCurrentPage} />
       <FormSinceSearch
         since={since}
@@ -27,9 +32,10 @@ function MainLeftSide({
   );
 }
 
-MainLeftSide.propTypes = {
+UserList.propTypes = {
   users: PropTypes.array.isRequired,
   pagination: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
   since: PropTypes.number.isRequired,
   onSetCurrentPage: PropTypes.func.isRequired,
   onSinceSearch: PropTypes.func.isRequired,
@@ -37,4 +43,4 @@ MainLeftSide.propTypes = {
   onShowUserDetails: PropTypes.func.isRequired,
 };
 
-export default MainLeftSide;
+export default UserList;

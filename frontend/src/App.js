@@ -16,9 +16,7 @@ library.add(faGithub);
 function App() {
   return (
     <Provider store={store}>
-      <div className="App">
-        <Main />
-      </div>
+      <Main />
     </Provider>
   );
 }

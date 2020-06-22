@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 // Actions
 import {
@@ -16,66 +17,44 @@ import UserDetails from "./UserDetails";
 // Components
 import { Navbar } from "../components";
 
-class Main extends Component {
+class Main extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       currentPage: 1,
       since: 0,
-      user: {},
-      userRepos: {},
-      userListScreen: true,
-      userDetailsScreen: false,
     };
-    this.handleSetCurrentPage = this.handleSetCurrentPage.bind(this);
-    this.handleOnSinceSearch = this.handleOnSinceSearch.bind(this);
-    this.handleOnChange = this.handleOnChange.bind(this);
-    this.handleShowUserDetails = this.handleShowUserDetails.bind(this);
-    this.handleToggleScreen = this.handleToggleScreen.bind(this);
   }
 
   componentDidMount() {
-    const { currentPage, since } = this.state;
-    this.props.getGithubUsers(since, currentPage);
+    this.props.getGithubUsers();
+    console.log("cdm");
   }
 
-  handleOnChange(e) {
+  handleOnChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
-  }
+  };
 
-  handleSetCurrentPage(number) {
+  handleSetCurrentPage = (number) => {
     this.setState({ currentPage: number });
     this.props.getGithubUsers(this.state.since, number);
-  }
+    console.log("setCurrentPage");
+  };
 
-  handleToggleScreen() {
-    this.setState({
-      userListScreen: !this.state.userListScreen,
-      userDetailsScreen: !this.state.userDetailsScreen,
-    });
-  }
-
-  handleOnSinceSearch() {
+  handleOnSinceSearch = () => {
     this.props.getGithubUsers(this.state.since, this.state.currentPage);
-  }
+  };
 
-  async handleShowUserDetails(username) {
+  handleShowUserDetails = async (username, history) => {
     const { getGithubUserDetails, getGithubUserRepos } = this.props;
-    const user = await getGithubUserDetails(username);
-    const userRepos = await getGithubUserRepos(username);
-    this.setState({ user: user.payload, userRepos: userRepos.payload });
-    this.handleToggleScreen();
-  }
+    await getGithubUserDetails(username);
+    await getGithubUserRepos(username);
+    history.push(`/userdetails/${username}`);
+  };
 
   render() {
-    const { users, pagination } = this.props;
-    const {
-      since,
-      user,
-      userRepos,
-      userListScreen,
-      userDetailsScreen,
-    } = this.state;
+    const { users, pagination, user, repos } = this.props;
+    const { since } = this.state;
 
     if (users && pagination) {
       return (
@@ -85,24 +64,33 @@ class Main extends Component {
         >
           <Navbar />
           <div className="row flex-grow-1 m-0">
-            {userListScreen ? (
-              <UserList
-                users={users}
-                pagination={pagination}
-                since={since}
-                onShowUserDetails={this.handleShowUserDetails}
-                onSetCurrentPage={this.handleSetCurrentPage}
-                onSinceSearch={this.handleOnSinceSearch}
-                onChange={this.handleOnChange}
-              />
-            ) : null}
-            {userDetailsScreen ? (
-              <UserDetails
-                user={user}
-                userRepos={userRepos}
-                onToggleScreen={this.handleToggleScreen}
-              />
-            ) : null}
+            <Router>
+              <Switch>
+                <Route
+                  exact
+                  path="/userlist"
+                  component={(routeProps) => (
+                    <UserList
+                      users={users}
+                      pagination={pagination}
+                      since={since}
+                      onShowUserDetails={this.handleShowUserDetails}
+                      onSetCurrentPage={this.handleSetCurrentPage}
+                      onSinceSearch={this.handleOnSinceSearch}
+                      onChange={this.handleOnChange}
+                      {...routeProps}
+                    />
+                  )}
+                />
+                <Route
+                  exact
+                  path="/userdetails/:username"
+                  component={(routeProps) => (
+                    <UserDetails user={user} repos={repos} {...routeProps} />
+                  )}
+                />
+              </Switch>
+            </Router>
           </div>
         </div>
       );

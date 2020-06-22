@@ -12,7 +12,7 @@ function Pagination({ onSetCurrentPage, pagination }) {
       {pageNumbers.map((number) => (
         <li key={number} className="page-item">
           <a
-            href="!#"
+            href="/userlist"
             className="page-link"
             onClick={() => {
               onSetCurrentPage(number);

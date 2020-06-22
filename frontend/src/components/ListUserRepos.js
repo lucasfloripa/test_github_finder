@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function ListUserRepos({ userRepos }) {
+function ListUserRepos({ repos }) {
   return (
     <ul id="list-user-repos" className="list-group mx-auto w-75">
-      {userRepos.map((repo) => (
+      {repos.map((repo) => (
         <li
           key={repo.id}
           className="list-item li-style-none d-flex justify-content-between"
@@ -21,7 +21,7 @@ function ListUserRepos({ userRepos }) {
 }
 
 ListUserRepos.propTypes = {
-  userRepos: PropTypes.array.isRequired,
+  repos: PropTypes.array.isRequired,
 };
 
 export default ListUserRepos;
