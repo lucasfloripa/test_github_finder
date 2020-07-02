@@ -1,48 +1,47 @@
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 // Actions
 import {
-  getGithubUsers,
+  getGithubUsersBySince,
   getGithubUserDetails,
   getGithubUserRepos,
-} from "../store/actions/githubActions";
+} from "../../store/actions/githubActions";
 
 // Sections
-import UserList from "./UserList";
-import UserDetails from "./UserDetails";
+import UserList from "../UserList";
+import UserDetails from "../UserDetails";
 
 // Components
-import { Navbar } from "../components";
+import Navbar from "./Navbar";
 
-class Main extends PureComponent {
+// Utils
+import checkUser from "../../utils/checkUser";
+
+class DataContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPage: 1,
-      since: 0,
+      since: "0",
     };
   }
 
   componentDidMount() {
-    this.props.getGithubUsers();
-    console.log("cdm");
+    this.props.getGithubUsersBySince();
   }
 
   handleOnChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleSetCurrentPage = (number) => {
-    this.setState({ currentPage: number });
-    this.props.getGithubUsers(this.state.since, number);
-    console.log("setCurrentPage");
+  handleOnSinceSearch = () => {
+    this.props.getGithubUsersBySince(`since=${this.state.since}&per_page=10`);
   };
 
-  handleOnSinceSearch = () => {
-    this.props.getGithubUsers(this.state.since, this.state.currentPage);
+  handlePagination = (url) => {
+    this.props.getGithubUsersBySince(url);
   };
 
   handleShowUserDetails = async (username, history) => {
@@ -53,10 +52,10 @@ class Main extends PureComponent {
   };
 
   render() {
-    const { users, pagination, user, repos } = this.props;
+    const { users, user, repos, pagination } = this.props;
     const { since } = this.state;
 
-    if (users && pagination) {
+    if (users) {
       return (
         <div
           id="main-container"
@@ -72,12 +71,12 @@ class Main extends PureComponent {
                   component={(routeProps) => (
                     <UserList
                       users={users}
-                      pagination={pagination}
                       since={since}
+                      pagination={pagination}
                       onShowUserDetails={this.handleShowUserDetails}
-                      onSetCurrentPage={this.handleSetCurrentPage}
                       onSinceSearch={this.handleOnSinceSearch}
                       onChange={this.handleOnChange}
+                      onPagination={this.handlePagination}
                       {...routeProps}
                     />
                   )}
@@ -85,9 +84,9 @@ class Main extends PureComponent {
                 <Route
                   exact
                   path="/userdetails/:username"
-                  component={(routeProps) => (
+                  component={checkUser((routeProps) => (
                     <UserDetails user={user} repos={repos} {...routeProps} />
-                  )}
+                  ))}
                 />
               </Switch>
             </Router>
@@ -96,20 +95,20 @@ class Main extends PureComponent {
       );
     } else {
       return (
-        <div class="spinner-border" role="status">
-          <span class="sr-only">Loading...</span>
+        <div className="spinner-border" role="status">
+          <span className="sr-only">Loading...</span>
         </div>
       );
     }
   }
 }
 
-Main.propTypes = {
+DataContainer.propTypes = {
   user: PropTypes.object,
   users: PropTypes.array,
   repos: PropTypes.array,
-  pagination: PropTypes.object,
-  getGithubUsers: PropTypes.func.isRequired,
+  pagination: PropTypes.array,
+  getGithubUsersBySince: PropTypes.func.isRequired,
   getGithubUserRepos: PropTypes.func.isRequired,
   getGithubUserDetails: PropTypes.func.isRequired,
 };
@@ -118,11 +117,11 @@ const mapStateToProps = (state) => ({
   users: state.github.users,
   user: state.github.user,
   repos: state.github.repos,
-  pagination: state.pagination,
+  pagination: state.pagination.pagination,
 });
 
 export default connect(mapStateToProps, {
-  getGithubUsers,
+  getGithubUsersBySince,
   getGithubUserDetails,
   getGithubUserRepos,
-})(Main);
+})(DataContainer);

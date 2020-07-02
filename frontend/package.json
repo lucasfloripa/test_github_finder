@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/lucasfloripa/test_github_finder"
+    "type": "git",
+    "url": "https://github.com/lucasfloripa/test_github_finder"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
@@ -17,8 +17,10 @@
     "axios": "^0.19.2",
     "bootstrap": "^4.5.0",
     "font-awesome": "^4.7.0",
+    "moment": "^2.27.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-moment": "^0.9.7",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",

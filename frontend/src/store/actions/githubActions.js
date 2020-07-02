@@ -1,24 +1,36 @@
 import axios from "axios";
 import {
-  GET_GITHUB_USERS,
+  GET_GITHUB_USERS_BY_SINCE,
   GET_GITHUB_USER_DETAILS,
   GET_GITHUB_USER_REPOS,
   SET_PAGINATION,
 } from "./types";
 
-export const getGithubUsers = (number, currentpage) => async (dispatch) => {
+export const getGithubUsersBySince = (url) => async (dispatch) => {
+  let since;
+
+  if (url === undefined) {
+    since = "since=0&per_page=10";
+  } else if (url === "since") {
+    since = url + "=0&per_page=10";
+  } else {
+    since = url;
+  }
+
   const res = await axios.get(
-    `http://localhost:5000/api/v1/github/users/${number}?page=${currentpage}`
+    `http://localhost:5000/api/v1/github/users/${since}`
   );
-  
+
+  const { users, pagination } = res.data;
+
   return (
     dispatch({
-      type: GET_GITHUB_USERS,
-      payload: res.data.users,
+      type: GET_GITHUB_USERS_BY_SINCE,
+      payload: users,
     }),
     dispatch({
       type: SET_PAGINATION,
-      payload: { page: res.data.page, pageCount: res.data.pageCount },
+      payload: pagination,
     })
   );
 };

@@ -1,8 +1,7 @@
 import { SET_PAGINATION } from "../actions/types";
 
 const INITIAL_STATE = {
-  page: null,
-  pageCount: null,
+  pagination: [],
 };
 
 export default function (state = INITIAL_STATE, action) {
@@ -10,8 +9,7 @@ export default function (state = INITIAL_STATE, action) {
     case SET_PAGINATION:
       return {
         ...state,
-        page: action.payload.page,
-        pageCount: action.payload.pageCount,
+        pagination: action.payload,
       };
     default:
       return {

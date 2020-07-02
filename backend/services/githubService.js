@@ -1,14 +1,17 @@
-const githubApi = require("../api/githubApi"),
-  ErrorResponse = require("../utils/ErrorResponse");
+const githubApi = require("../api/githubApi");
 
 const githubService = {
-  getUsers: async (since) => {
+  getUsersBySince: async (since) => {
     return await githubApi
-      .get(`/users?since=${since}`)
+      .get(`/users?${since}`)
       .then((res) => {
-        if (res.status === 200 && res.data) return res.data;
+        if (res.status === 200 && res.data) {
+          return { users: res.data, links: res.headers.link };
+        }
       })
-      .catch((err) => new ErrorResponse("Users not found", 404));
+      .catch((err) => {
+        return err;
+      });
   },
 
   getUserDetails: async (username) => {
@@ -20,7 +23,9 @@ const githubService = {
           return { id, login, html_url, created_at };
         }
       })
-      .catch((err) => new ErrorResponse("User not found", 404));
+      .catch((err) => {
+        return err;
+      });
   },
 
   getUserRepos: async (username) => {
@@ -36,7 +41,9 @@ const githubService = {
           return repos;
         }
       })
-      .catch((err) => new ErrorResponse("Repos not found", 404));
+      .catch((err) => {
+        return err;
+      });
   },
 };
 

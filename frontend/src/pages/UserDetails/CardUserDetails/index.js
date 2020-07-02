@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 
 // Utils
-import formatDate from "../utils/formatDate";
+import Moment from "react-moment";
 
-function CardUserDetails({ user }) {
+const CardUserDetails = ({ user }) => {
   return (
     <div className="card-position mx-auto w-75">
       <div className="card text-center">
@@ -21,18 +21,18 @@ function CardUserDetails({ user }) {
             </div>
           </h3>
           <hr />
-          <a href={user.html_url} target="_blank">
+          <a href={user.html_url} target="_blank" rel="noopener noreferrer">
             {user.html_url}
           </a>
           <p>
             <span className="text-primary">Criado Em</span>{" "}
-            {formatDate(user.created_at)}
+            <Moment format="DD/MM/YYYY">{user.created_at}</Moment>
           </p>
         </div>
       </div>
     </div>
   );
-}
+};
 
 CardUserDetails.propTypes = {
   user: PropTypes.object.isRequired,

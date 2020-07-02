@@ -1,7 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 
-function Navbar() {
+const Navbar = () => {
   return (
     <nav
       id="nav-bar"
@@ -14,6 +14,6 @@ function Navbar() {
       By Lucas Gonçalves
     </nav>
   );
-}
+};
 
 export default Navbar;

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function TableUserList({ users, onShowUserDetails, history }) {
+const TableUserList = ({ users, onShowUserDetails, history }) => {
   return (
     <table className="table table-bordered table-hover mb-4 w-50 mx-auto text-center">
       <thead className="thead-dark">
@@ -26,7 +26,7 @@ function TableUserList({ users, onShowUserDetails, history }) {
       </tbody>
     </table>
   );
-}
+};
 
 TableUserList.propTypes = {
   users: PropTypes.array.isRequired,

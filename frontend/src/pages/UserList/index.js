@@ -2,18 +2,20 @@ import React from "react";
 import PropTypes from "prop-types";
 
 // Components
-import { TableUserList, Pagination, FormSinceSearch } from "../components";
+import TableUserList from "./TableUserList";
+import FormSinceSearch from "./FormSinceSearch";
+import Pagination from "./Pagination";
 
-function UserList({
+const UserList = ({
   users,
-  pagination,
   since,
-  onSetCurrentPage,
+  pagination,
   onSinceSearch,
   onChange,
   onShowUserDetails,
+  onPagination,
   history,
-}) {
+}) => {
   return (
     <section id="user-list" className="w-100">
       <h3 className="my-3 text-center">Users List</h3>
@@ -22,7 +24,7 @@ function UserList({
         onShowUserDetails={onShowUserDetails}
         history={history}
       />
-      <Pagination pagination={pagination} onSetCurrentPage={onSetCurrentPage} />
+      <Pagination onPagination={onPagination} pagination={pagination} />
       <FormSinceSearch
         since={since}
         onSinceSearch={onSinceSearch}
@@ -30,17 +32,17 @@ function UserList({
       />
     </section>
   );
-}
+};
 
 UserList.propTypes = {
   users: PropTypes.array.isRequired,
-  pagination: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
-  since: PropTypes.number.isRequired,
-  onSetCurrentPage: PropTypes.func.isRequired,
+  since: PropTypes.string.isRequired,
+  pagination: PropTypes.array.isRequired,
   onSinceSearch: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   onShowUserDetails: PropTypes.func.isRequired,
+  onPagination: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 export default UserList;

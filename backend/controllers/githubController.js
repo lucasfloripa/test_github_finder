@@ -1,39 +1,42 @@
 const asyncHandler = require("../middlewares/asyncHandler"),
   ErrorResponse = require("../utils/ErrorResponse"),
   {
-    getUsers,
+    getUsersBySince,
     getUserDetails,
     getUserRepos,
   } = require("../services/githubService");
 
 // @desc      Get Users
-// @route     GET /api/v1/github/users/:number?page=:currentpage
+// @route     GET /api/v1/github/users/:since
 // @access    Public
 exports.getUsers = asyncHandler(async (req, res, next) => {
-  const users = await getUsers(req.query.number);
+  const data = await getUsersBySince(req.params.since);
 
-  if (!users) {
+  if (!data) {
     return next(new ErrorResponse("Users not found", 404));
   }
 
-  // Pagination
-  const pageCount = users.length / 10;
-  let page = parseInt(req.query.page);
-  if (!page) {
-    page = 1;
-  }
-  if (page > pageCount) {
-    page = pageCount;
-  }
+  const { links, users } = data;
 
-  res.json({
-    page: page,
-    pageCount: pageCount,
-    users: users.slice(page * 10 - 10, page * 10).map((user) => ({
-      id: user.id,
-      login: user.login,
-    })),
-  });
+  // Substring Manipulation for Pagination
+  const pagination = links.split(",").map((link) => ({
+    url: link
+      .split(";")[0]
+      .replace("<", "")
+      .replace(">", "")
+      .trim()
+      .split("/")[3]
+      .split("?")[1]
+      .replace("}", ""),
+    btn: link
+      .split(";")[1]
+      .trim()
+      .split("=")[1]
+      .replace('"', "")
+      .replace('"', ""),
+  }));
+
+  res.json({ success: true, length: users.length, users, pagination });
 });
 
 // @desc      Get User Details

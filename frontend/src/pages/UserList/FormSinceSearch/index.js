@@ -1,9 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function FormSinceSearch({ since, onChange, onSinceSearch }) {
+const FormSinceSearch = ({ since, onChange, onSinceSearch }) => {
   return (
-    <div id="form-since-search" className="form-inline d-flex justify-content-center">
+    <div
+      id="form-since-search"
+      className="form-inline d-flex justify-content-center"
+    >
       <label htmlFor="since">Since Params</label>
       <div className="form-group mx-sm-3">
         <input
@@ -22,7 +25,7 @@ function FormSinceSearch({ since, onChange, onSinceSearch }) {
 }
 
 FormSinceSearch.propTypes = {
-  since: PropTypes.number.isRequired,
+  since: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   onSinceSearch: PropTypes.func.isRequired,
 };

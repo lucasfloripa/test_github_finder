@@ -3,12 +3,13 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 // Components
-import { CardUserDetails, ListUserRepos } from "../components";
+import CardUserDetails from "./CardUserDetails";
+import ListUserRepos from "./ListUserRepos";
 
-function UserDetails({ user, repos }) {
+const UserDetails = ({ user, repos }) => {
   return (
     <section id="user-details" className="d-flex w-100">
-      <div className="col-12 col-xl-6 d-flex flex-column">
+      <div className="col-12 col-xl-6 d-flex flex-column p-0">
         <CardUserDetails user={user} />
         <Link
           to="/userlist"
@@ -17,13 +18,13 @@ function UserDetails({ user, repos }) {
           Voltar
         </Link>
       </div>
-      <div className="col-12 col-xl-6">
+      <div className="col-12 col-xl-6 p-0">
         <h2 className="my-3 text-center">User Repositories</h2>
         <ListUserRepos repos={repos} />
       </div>
     </section>
   );
-}
+};
 
 UserDetails.propTypes = {
   user: PropTypes.object.isRequired,

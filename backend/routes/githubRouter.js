@@ -6,7 +6,7 @@ const express = require("express"),
     getUserRepos,
   } = require("../controllers/githubController");
 
-router.route("/users/:number").get(getUsers);
+router.route("/users/:since").get(getUsers);
 router.route("/users/:username/details").get(getUserDetails);
 router.route("/users/:username/repos").get(getUserRepos);
 
