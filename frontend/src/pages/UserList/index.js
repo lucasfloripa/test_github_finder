@@ -6,6 +6,9 @@ import TableUserList from "./TableUserList";
 import FormSinceSearch from "./FormSinceSearch";
 import Pagination from "./Pagination";
 
+// Styles
+import * as SC from "./styles";
+
 const UserList = ({
   users,
   since,
@@ -17,8 +20,8 @@ const UserList = ({
   history,
 }) => {
   return (
-    <section id="user-list" className="w-100">
-      <h3 className="my-3 text-center">Users List</h3>
+    <SC.UserListSection>
+      <SC.Title>Users List</SC.Title>
       <TableUserList
         users={users}
         onShowUserDetails={onShowUserDetails}
@@ -30,7 +33,7 @@ const UserList = ({
         onSinceSearch={onSinceSearch}
         onChange={onChange}
       />
-    </section>
+    </SC.UserListSection>
   );
 };
 

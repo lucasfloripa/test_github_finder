@@ -17,6 +17,9 @@ import UserDetails from "../UserDetails";
 // Components
 import Navbar from "./Navbar";
 
+// Styles
+import * as SC from "./styles";
+
 // Utils
 import checkUser from "../../utils/checkUser";
 
@@ -55,51 +58,40 @@ class DataContainer extends Component {
     const { users, user, repos, pagination } = this.props;
     const { since } = this.state;
 
-    if (users) {
-      return (
-        <div
-          id="main-container"
-          className="container-fluid d-flex flex-column px-0"
-        >
-          <Navbar />
-          <div className="row flex-grow-1 m-0">
-            <Router>
-              <Switch>
-                <Route
-                  exact
-                  path="/userlist"
-                  component={(routeProps) => (
-                    <UserList
-                      users={users}
-                      since={since}
-                      pagination={pagination}
-                      onShowUserDetails={this.handleShowUserDetails}
-                      onSinceSearch={this.handleOnSinceSearch}
-                      onChange={this.handleOnChange}
-                      onPagination={this.handlePagination}
-                      {...routeProps}
-                    />
-                  )}
-                />
-                <Route
-                  exact
-                  path="/userdetails/:username"
-                  component={checkUser((routeProps) => (
-                    <UserDetails user={user} repos={repos} {...routeProps} />
-                  ))}
-                />
-              </Switch>
-            </Router>
-          </div>
-        </div>
-      );
-    } else {
-      return (
-        <div className="spinner-border" role="status">
-          <span className="sr-only">Loading...</span>
-        </div>
-      );
-    }
+    return (
+      <SC.Container>
+        <Navbar />
+        <SC.MainSection>
+          <Router>
+            <Switch>
+              <Route
+                exact
+                path="/userlist"
+                component={(routeProps) => (
+                  <UserList
+                    users={users}
+                    since={since}
+                    pagination={pagination}
+                    onShowUserDetails={this.handleShowUserDetails}
+                    onSinceSearch={this.handleOnSinceSearch}
+                    onChange={this.handleOnChange}
+                    onPagination={this.handlePagination}
+                    {...routeProps}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/userdetails/:username"
+                component={checkUser((routeProps) => (
+                  <UserDetails user={user} repos={repos} {...routeProps} />
+                ))}
+              />
+            </Switch>
+          </Router>
+        </SC.MainSection>
+      </SC.Container>
+    );
   }
 }
 

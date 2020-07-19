@@ -9,10 +9,9 @@ import {
 export const getGithubUsersBySince = (url) => async (dispatch) => {
   let since;
 
-  if (url === undefined) {
+  // Default Since Param
+  if (url === undefined || url === "since") {
     since = "since=0&per_page=10";
-  } else if (url === "since") {
-    since = url + "=0&per_page=10";
   } else {
     since = url;
   }

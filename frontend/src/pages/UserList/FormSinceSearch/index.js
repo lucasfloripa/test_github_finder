@@ -1,28 +1,28 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+// Styles
+import * as SC from "./styles";
+
 const FormSinceSearch = ({ since, onChange, onSinceSearch }) => {
   return (
-    <div
-      id="form-since-search"
-      className="form-inline d-flex justify-content-center"
-    >
-      <label htmlFor="since">Since Params</label>
-      <div className="form-group mx-sm-3">
-        <input
+    <SC.FormSinceSearch>
+      <SC.FormLabel>Since Params</SC.FormLabel>
+      <SC.FormGroup>
+        <SC.FormInput
           className="form-control"
           name="since"
           placeholder="Since Number"
           value={since}
           onChange={onChange}
         />
-      </div>
+      </SC.FormGroup>
       <button className="btn btn-primary" onClick={onSinceSearch}>
         Search
       </button>
-    </div>
+    </SC.FormSinceSearch>
   );
-}
+};
 
 FormSinceSearch.propTypes = {
   since: PropTypes.string.isRequired,
